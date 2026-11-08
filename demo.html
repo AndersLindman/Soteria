@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Soteria KEM Demo</title>
+</head>
+<body>
+  <h2>Soteria KEM ES Module Demo</h2>
+  <button id="runBtn">Run Exchange</button>
+  <pre id="output">Status: Idle</pre>
+
+  <script type="module">
+    import { SoteriaKEM } from './js/Soteria.js';
+
+    document.getElementById('runBtn').addEventListener('click', async () => {
+      const out = document.getElementById('output');
+      out.textContent = "Initializing SoteriaKEM...";
+
+      // 1. Instantiate and initialize keys
+      const kem = new SoteriaKEM();
+      const { N } = await kem.init();
+
+      out.textContent = "Encapsulating...";
+      // 2. Bob encapsulates a key
+      const bob = await kem.encapsulate(N);
+
+      out.textContent = "Decapsulating...";
+      // 3. Alice decapsulates the ciphertext
+      const alice = await kem.decapsulate(bob.ciphertext);
+
+      out.textContent = `Exchange complete!\nMatch: ${bob.sessionKey === alice.sessionKey}\nKey: ${alice.sessionKey}`;
+    });
+  </script>
+</body>
+</html>
