@@ -10,6 +10,7 @@ An experimental, educational implementation of a **Rabin Key Encapsulation Mecha
 - **Side-channel leakage:** JavaScript `BigInt` arithmetic is **not constant-time**. Operations such as modular exponentiation, multiplication, and comparison may leak timing information that could expose private key material to a local attacker.
 - **No formal proof:** While the padding structure follows sound cryptographic principles (HKDF-based commitment, implicit rejection, re-encryption check), this specific instantiation has not been reduced to a standard hardness assumption in a peer-reviewed setting.
 - **Browser-only:** This implementation relies on browser-specific behavior and is intended purely for educational exploration.
+- **HHK:** Current Status: Implements practical CCA-resilient decapsulation featuring multi-root padding validation and implicit rejection fallback. Full HHK re-encryption verification (for strict IND-CCA2 formal reduction) is pending implementation.
 
 ## What This Is
 
